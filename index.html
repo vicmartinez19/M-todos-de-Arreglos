@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividad 3 - Métodos de Arreglos (Tienda Online)</title>
+  <style>
+    :root {
+      --primary: #8b5cf6;
+      --primary-dark: #6d28d9;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 850px;
+      width: 100%;
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+    h1 { color: var(--primary-dark); margin-top: 0; }
+    .badge {
+      background: #ede9fe;
+      color: #5b21b6;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    .console-box {
+      background: #0f172a;
+      color: #c084fc;
+      font-family: 'Consolas', monospace;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      margin-top: 1.5rem;
+      max-height: 450px;
+      overflow-y: auto;
+    }
+    .info-card {
+      background: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0 8px 8px 0;
+    }
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: var(--primary-dark); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Actividad 3 • Métodos de Arreglos</span>
+    <h1>🛍️ Métodos de Arreglos (Tienda Online)</h1>
+    <div class="info-card">
+      <p>Demostración funcional de <code>filter()</code>, <code>sort()</code>, <code>map()</code>, <code>reduce()</code>, <code>find()</code> y <code>some()</code>.</p>
+    </div>
+
+    <button id="btnEjecutar">▶️ Ejecutar Filtrado y Transformación</button>
+    <div class="console-box" id="output">Esperando ejecución...</div>
+  </div>
+
+  <script type="module">
+    import {
+      productos,
+      filtrarEconomicos,
+      ordenarPorNombre,
+      obtenerNombres,
+      calcularValorTotalInventario,
+      buscarPorNombre,
+      existeCategoria,
+      todosTienenPrecioPositivo
+    } from './tienda.js';
+
+    const output = document.getElementById('output');
+    const btn = document.getElementById('btnEjecutar');
+
+    btn.addEventListener('click', () => {
+      let logs = [];
+      const log = (msg) => logs.push(msg);
+
+      log('======================================================');
+      log('       GESTIÓN DE PRODUCTOS - TIENDA ONLINE           ');
+      log('======================================================\n');
+
+      log('1. Catálogo de Productos Registrados:');
+      productos.forEach(p => log(`   [ID: ${p.id}] ${p.nombre} - $${p.precio} USD (${p.categoria})`));
+
+      const economicos = filtrarEconomicos(productos, 100);
+      log('\n2. Productos con Precio < $100 (filter):');
+      economicos.forEach(p => log(`   * ${p.nombre} ($${p.precio})`));
+
+      const ordenados = ordenarPorNombre(economicos);
+      log('\n3. Económicos Ordenados Alfabéticamente (sort):');
+      ordenados.forEach(p => log(`   * ${p.nombre} ($${p.precio})`));
+
+      const nombres = obtenerNombres(ordenados);
+      log('\n4. Arreglo de Nombres Mapeados (map):');
+      log('   ' + JSON.stringify(nombres));
+
+      log('\n5. Métodos Avanzados:');
+      const total = calcularValorTotalInventario(productos);
+      log(`   * Total Inventario (reduce): $${total} USD`);
+      log(`   * Búsqueda "Laptop" (find) : ${JSON.stringify(buscarPorNombre(productos, 'Laptop'))}`);
+      log(`   * ¿Hay Electrónica? (some) : ${existeCategoria(productos, 'Electrónica') ? 'Sí' : 'No'}`);
+      log(`   * ¿Precios > 0? (every)    : ${todosTienenPrecioPositivo(productos) ? 'Sí' : 'No'}`);
+
+      output.textContent = logs.join('\n');
+    });
+
+    btn.click();
+  </script>
+</body>
+</html>
