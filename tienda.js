@@ -18,6 +18,10 @@ export const ordenarPorNombre = (lista) => {
   return [...lista].sort((a, b) => a.nombre.localeCompare(b.nombre));
 };
 
+export const obtenerNombres = (lista) => {
+  return lista.map((prod) => prod.nombre);
+};
+
 console.log('1. Catálogo Completo de Productos:');
 console.table(productos);
 
@@ -28,3 +32,7 @@ console.table(productosEconomicos);
 const productosOrdenados = ordenarPorNombre(productosEconomicos);
 console.log('\n3. Productos Económicos Ordenados Alfabéticamente (sort):');
 console.table(productosOrdenados);
+
+const nombresEconomicos = obtenerNombres(productosOrdenados);
+console.log('\n4. Lista de Nombres de Productos Económicos (map):');
+console.log(nombresEconomicos);
