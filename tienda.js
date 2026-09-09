@@ -14,9 +14,17 @@ export const filtrarEconomicos = (lista, limite = 100) => {
   return lista.filter((prod) => prod.precio < limite);
 };
 
+export const ordenarPorNombre = (lista) => {
+  return [...lista].sort((a, b) => a.nombre.localeCompare(b.nombre));
+};
+
 console.log('1. Catálogo Completo de Productos:');
 console.table(productos);
 
 const productosEconomicos = filtrarEconomicos(productos, 100);
 console.log('\n2. Productos con Precio < $100 (filter):');
 console.table(productosEconomicos);
+
+const productosOrdenados = ordenarPorNombre(productosEconomicos);
+console.log('\n3. Productos Económicos Ordenados Alfabéticamente (sort):');
+console.table(productosOrdenados);
