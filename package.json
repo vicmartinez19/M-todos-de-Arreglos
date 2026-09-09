@@ -1,0 +1,10 @@
+{
+  "name": "actividad-3-metodos-arreglos",
+  "version": "1.0.0",
+  "description": "Metodos declarativos de arreglos en tienda online",
+  "type": "module",
+  "main": "tienda.js",
+  "scripts": {
+    "start": "node tienda.js"
+  }
+}
