@@ -1,3 +1,4 @@
+
 export const productos = [
   { id: 1, nombre: 'Camiseta', precio: 15, categoria: 'Ropa' },
   { id: 2, nombre: 'Laptop', precio: 800, categoria: 'Electrónica' },
@@ -9,5 +10,13 @@ export const productos = [
   { id: 8, nombre: 'Monitor Gamer', precio: 320, categoria: 'Electrónica' }
 ];
 
+export const filtrarEconomicos = (lista, limite = 100) => {
+  return lista.filter((prod) => prod.precio < limite);
+};
+
 console.log('1. Catálogo Completo de Productos:');
 console.table(productos);
+
+const productosEconomicos = filtrarEconomicos(productos, 100);
+console.log('\n2. Productos con Precio < $100 (filter):');
+console.table(productosEconomicos);
